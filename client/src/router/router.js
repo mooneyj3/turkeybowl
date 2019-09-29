@@ -3,12 +3,8 @@ import Router from 'vue-router'
 
 import Scoreboard from '@/components/Scoreboard'
 import Login from '@/components/pages/Login'
-
-// import Home from '@/components/pages/Home'
-// import Statistica from '@/components/pages/Statistica'
-// import TellStory from '@/components/pages/TellStory'
-// import ViewCard from '@/components/pages/ViewCard'
-// import FindCard from '@/components/pages/FindCard'
+import EditProfile from '@/components/Profile/EditProfile'
+import EditTeam from '@/components/Team/EditTeam'
 
 Vue.use(Router);
 
@@ -18,5 +14,7 @@ export default new Router({
     routes: [
         {path: '/', name: 'home', component: Scoreboard},
         {path: '/login', name: 'login', component: Login},
+        {path: '/editprofile', name: 'editprofile', component: EditProfile},
+        {path: '/editteam', name: 'editteam', component: EditTeam}
     ]
 })
