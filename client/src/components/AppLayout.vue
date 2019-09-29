@@ -1,36 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" app right>
-            <v-list dense>
-                <router-link to="/">
-                    <v-list-item>
-                        <v-list-item-action>
-                            <v-icon>home</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Home</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </router-link>
-
-                <router-link to="/login">
-                    <v-list-item>
-                        <v-list-item-action>
-                            <v-icon>mail</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Contact</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </router-link>
-            </v-list>
-        </v-navigation-drawer>
-
-        <v-app-bar app color="cyan" dark>
-            <div class="flex-grow-1"></div>
-            <v-toolbar-title>Application</v-toolbar-title>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        </v-app-bar>
+        <NavigationDrawer></NavigationDrawer>
 
         <v-content>
             <router-view></router-view>
@@ -65,10 +35,7 @@
             <!--</v-container>-->
         </v-content>
 
-        <v-footer
-                color="cyan"
-                app
-        >
+        <v-footer color="primary" app>
             <div class="flex-grow-1"></div>
             <span class="white--text">&copy; 2019</span>
         </v-footer>
@@ -86,18 +53,19 @@
 
 
 <script>
+    import NavigationDrawer from "./NavigationDrawer/NavigationDrawer";
     export default {
         name: "AppLayout",
+        components: {NavigationDrawer},
         props: {
             source: String,
         },
-        data: () => ({
-            drawer: null,
-        }),
+        // data: () => ({
+        //     drawer: null,
+        // }),
     }
 </script>
 
 
 <style scoped>
-
 </style>
