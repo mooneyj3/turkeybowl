@@ -27,82 +27,82 @@ class PlayerStat(models.Model):
 
 
 class Passing(PlayerStat):
-    att = models.IntegerField()
-    cmp = models.IntegerField()
+    attempts = models.IntegerField()
+    completions = models.IntegerField()
     yards = models.IntegerField()
     touchdowns = models.IntegerField()
     interceptions = models.IntegerField()
-    twopta = models.IntegerField()
-    twoptm = models.IntegerField()
+    two_point_attempts = models.IntegerField()
+    two_points_made = models.IntegerField()
 
 
 class Rushing(PlayerStat):
-    att = models.IntegerField()
-    yds = models.IntegerField()
-    tds = models.IntegerField()
-    lng = models.IntegerField()
-    lngtd = models.IntegerField()
-    twopta = models.IntegerField()
-    twoptm = models.IntegerField()
+    attempts = models.IntegerField()
+    yards = models.IntegerField()
+    touchdowns = models.IntegerField()
+    longest = models.IntegerField()
+    longest_touchdown = models.IntegerField()
+    two_point_attempts = models.IntegerField()
+    two_points_made = models.IntegerField()
 
 
 class Receiving(PlayerStat):
-    rec = models.IntegerField()
-    yds = models.IntegerField()
-    tds = models.IntegerField()
-    lng = models.IntegerField()
-    lngtd = models.IntegerField()
-    twopta = models.IntegerField()
-    twoptm = models.IntegerField()
+    receptions = models.IntegerField()
+    yards = models.IntegerField()
+    touchdowns = models.IntegerField()
+    longest = models.IntegerField()
+    longest_touchdown = models.IntegerField()
+    two_point_attempts = models.IntegerField()
+    two_points_made = models.IntegerField()
 
 
 class Fumble(PlayerStat):
-    tot = models.IntegerField()
-    rcv = models.IntegerField()
-    trcv = models.IntegerField()
-    yds = models.IntegerField()
+    total = models.IntegerField()
+    recovered = models.IntegerField()
+    total_recovered = models.IntegerField()
+    yards = models.IntegerField()
     lost = models.IntegerField()
 
 
 class Kicking(PlayerStat):
-    fgm = models.IntegerField()
-    fga = models.IntegerField()
-    fgyds = models.IntegerField()
-    totpfg = models.IntegerField()
-    xpmade = models.IntegerField()
-    xpmissed = models.IntegerField()
-    xpa = models.IntegerField()
-    xpb = models.IntegerField()
-    xptot = models.IntegerField()
+    field_goals_made = models.IntegerField()
+    field_goal_attempts = models.IntegerField()
+    field_goal_yards = models.IntegerField()
+    total_field_goal_points = models.IntegerField()
+    extra_points_made = models.IntegerField()
+    extra_points_missed = models.IntegerField()
+    extra_points_attempted = models.IntegerField()
+    extra_points_blocked = models.IntegerField()
+    extra_points_total = models.IntegerField()
 
 
 class Punting(PlayerStat):
-    pts = models.IntegerField()
-    yds = models.IntegerField()
-    avg = models.IntegerField()
-    i20 = models.IntegerField()
-    lng = models.IntegerField()
+    punts = models.IntegerField()
+    yards = models.IntegerField()
+    average = models.IntegerField()
+    inside_20_yard_line = models.IntegerField()
+    longest = models.IntegerField()
 
 
 class KickRet(PlayerStat):
-    ret = models.IntegerField()
-    avg = models.IntegerField()
-    tds = models.IntegerField()
-    lng = models.IntegerField()
-    lngtd = models.IntegerField()
+    returns = models.IntegerField()
+    average = models.IntegerField()
+    touchdowns = models.IntegerField()
+    longest = models.IntegerField()
+    longest_touchdown = models.IntegerField()
 
 
 class PuntRet(PlayerStat):
-    ret = models.IntegerField()
-    avg = models.IntegerField()
-    tds = models.IntegerField()
-    lng = models.IntegerField()
-    lngtd = models.IntegerField()
+    returns = models.IntegerField()
+    average = models.IntegerField()
+    touchdowns = models.IntegerField()
+    longest = models.IntegerField()
+    longest_touchdown = models.IntegerField()
 
 
 class Defense(PlayerStat):
-    tkl = models.IntegerField()
-    ast = models.IntegerField()
-    sk = models.IntegerField()
-    int = models.IntegerField()
-    ffum = models.IntegerField()
+    tackle = models.IntegerField()
+    assisted_tackle = models.IntegerField()
+    sack = models.IntegerField()
+    interception = models.IntegerField()
+    forced_fumble = models.IntegerField()
