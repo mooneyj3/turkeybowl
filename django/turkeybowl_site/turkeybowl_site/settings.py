@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'turkeybowl.apps.TurkeybowlConfig',
+    'nfl_stats.apps.NflStatsConfig',
     'tastypie',
 ]
 

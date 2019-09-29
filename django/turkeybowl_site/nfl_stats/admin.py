@@ -1,20 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from turkeybowl.models import *
-
-class TeamPerformanceInline(admin.TabularInline):
-    model = TeamPerformance
-
-class TeamAdmin(admin.ModelAdmin):
-    inlines = [
-        TeamPerformanceInline,
-    ]
+from nfl_stats.models import *
 
 admin.site.register(Game)
 admin.site.register(Player)
 admin.site.register(PlayerStat)
-admin.site.register(Team, TeamAdmin)
+admin.site.register(Team)
 admin.site.register(TeamPerformance)
 admin.site.register(Defense)
 admin.site.register(Fumble)
