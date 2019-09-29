@@ -1,6 +1,6 @@
 from django.db import models
 
-from turkeybowl.models.core import Player, Game, TeamPerformance
+from nfl_stats.models.core import Player, Game, TeamPerformance
 
 
 class TeamStat(models.Model):
