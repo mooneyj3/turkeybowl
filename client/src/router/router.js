@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Scoreboard from '@/components/Scoreboard'
 import Login from '@/components/pages/Login'
+import Profile from '@/components/Profile/Profile'
 
 // import Home from '@/components/pages/Home'
 // import Statistica from '@/components/pages/Statistica'
@@ -18,5 +19,6 @@ export default new Router({
     routes: [
         {path: '/', name: 'home', component: Scoreboard},
         {path: '/login', name: 'login', component: Login},
+        {path: '/profile', name: 'profile', component: Profile}
     ]
 })

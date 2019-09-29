@@ -27,7 +27,7 @@
                 </router-link>
 
                 <!--My Profile-->
-                <router-link to="/">
+                <router-link to="/profile">
                     <v-list-item>
                         <v-list-item-action>
                             <v-icon>person</v-icon>
