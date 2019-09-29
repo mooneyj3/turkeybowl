@@ -15,19 +15,19 @@
                 </router-link>
 
                 <!--My Team-->
-                <router-link to="/">
+                <router-link to="/editteam">
                     <v-list-item>
                         <v-list-item-action>
                             <v-icon>people</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>My Team</v-list-item-title>
+                            <v-list-item-title>Edit My Team</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
 
                 <!--My Profile-->
-                <router-link to="/profile">
+                <router-link to="/editprofile">
                     <v-list-item>
                         <v-list-item-action>
                             <v-icon>person</v-icon>
