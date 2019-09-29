@@ -1,6 +1,6 @@
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL_WITH_RELATIONS, ALL
-from turkeybowl.models import *
+from nfl_stats.models import *
 
 
 class TeamResource(ModelResource):
