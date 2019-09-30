@@ -1,32 +1,45 @@
 from django.db import models
-
-from nfl_stats.models.core import Player, Game, TeamPerformance
-
-
-class TeamStat(models.Model):
-    team = models.OneToOneField(TeamPerformance, primary_key=True, on_delete=models.CASCADE)
-    totfd = models.IntegerField()
-    totyds = models.IntegerField()
-    pyds = models.IntegerField()
-    ryds = models.IntegerField()
-    pen = models.IntegerField()
-    penyds = models.IntegerField()
-    trnovr = models.IntegerField()
-    pt = models.IntegerField()
-    ptyds = models.IntegerField()
-    ptavg = models.IntegerField()
-    top = models.IntegerField()
+from polymorphic.models import PolymorphicModel
 
 
-class PlayerStat(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+class Team(models.Model):
+    abbreviation = models.CharField(max_length=5, primary_key=True)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return 'Player Stat: {}'.format(self.player.name)
+        return('{} {}'.format(self.abbreviation, self.name))
 
 
-class Passing(PlayerStat):
+class Player(models.Model):
+    player_id = models.CharField(max_length=20, primary_key=True)
+    name = models.CharField(max_length=50)
+    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return(self.name)
+
+
+class Game(models.Model):
+    home_team = models.ForeignKey(Team, related_name='home_team', on_delete=models.DO_NOTHING)
+    away_team = models.ForeignKey(Team, related_name='away_team', on_delete=models.DO_NOTHING)
+    home_score = models.IntegerField(default=0)
+    away_score = models.IntegerField(default=0)
+    date = models.DateTimeField(blank=True)
+
+    def __str__(self):
+        return('{} vs. {}, {}'.format(self.home_team, self.away_team, self.date))
+
+
+class Stat(PolymorphicModel):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}, {}, {}'.format(self.__class__.__name__, self.player.name, self.game.__str__())
+
+
+class Passing(Stat):
+    stat_type = models.CharField(max_length=20, default='passing')
     attempts = models.IntegerField()
     completions = models.IntegerField()
     yards = models.IntegerField()
@@ -36,7 +49,8 @@ class Passing(PlayerStat):
     two_points_made = models.IntegerField()
 
 
-class Rushing(PlayerStat):
+class Rushing(Stat):
+    stat_type = models.CharField(max_length=20, default='rushing')
     attempts = models.IntegerField()
     yards = models.IntegerField()
     touchdowns = models.IntegerField()
@@ -46,7 +60,8 @@ class Rushing(PlayerStat):
     two_points_made = models.IntegerField()
 
 
-class Receiving(PlayerStat):
+class Receiving(Stat):
+    stat_type = models.CharField(max_length=20, default='receiving')
     receptions = models.IntegerField()
     yards = models.IntegerField()
     touchdowns = models.IntegerField()
@@ -56,7 +71,8 @@ class Receiving(PlayerStat):
     two_points_made = models.IntegerField()
 
 
-class Fumble(PlayerStat):
+class Fumble(Stat):
+    stat_type = models.CharField(max_length=20, default='fumble')
     total = models.IntegerField()
     recovered = models.IntegerField()
     total_recovered = models.IntegerField()
@@ -64,7 +80,8 @@ class Fumble(PlayerStat):
     lost = models.IntegerField()
 
 
-class Kicking(PlayerStat):
+class Kicking(Stat):
+    stat_type = models.CharField(max_length=20, default='kicking')
     field_goals_made = models.IntegerField()
     field_goal_attempts = models.IntegerField()
     field_goal_yards = models.IntegerField()
@@ -76,7 +93,8 @@ class Kicking(PlayerStat):
     extra_points_total = models.IntegerField()
 
 
-class Punting(PlayerStat):
+class Punting(Stat):
+    stat_type = models.CharField(max_length=20, default='punting')
     punts = models.IntegerField()
     yards = models.IntegerField()
     average = models.IntegerField()
@@ -84,7 +102,8 @@ class Punting(PlayerStat):
     longest = models.IntegerField()
 
 
-class KickRet(PlayerStat):
+class KickRet(Stat):
+    stat_type = models.CharField(max_length=20, default='kick_return')
     returns = models.IntegerField()
     average = models.IntegerField()
     touchdowns = models.IntegerField()
@@ -92,7 +111,8 @@ class KickRet(PlayerStat):
     longest_touchdown = models.IntegerField()
 
 
-class PuntRet(PlayerStat):
+class PuntRet(Stat):
+    stat_type = models.CharField(max_length=20, default='punt_return')
     returns = models.IntegerField()
     average = models.IntegerField()
     touchdowns = models.IntegerField()
@@ -100,7 +120,8 @@ class PuntRet(PlayerStat):
     longest_touchdown = models.IntegerField()
 
 
-class Defense(PlayerStat):
+class Defense(Stat):
+    stat_type = models.CharField(max_length=20, default='defense')
     tackle = models.IntegerField()
     assisted_tackle = models.IntegerField()
     sack = models.IntegerField()
