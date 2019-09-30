@@ -10,6 +10,7 @@
 *.pyc
 __pycache__/
 local_settings.py
+tbdb.sqlite3
 db.sqlite3
 db.sqlite3-journal
 media
