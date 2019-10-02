@@ -15,19 +15,19 @@
                 </router-link>
 
                 <!--My Team-->
-                <router-link to="/">
+                <router-link to="/editteam" v-if="isLoggedIn">
                     <v-list-item>
                         <v-list-item-action>
                             <v-icon>people</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>My Team</v-list-item-title>
+                            <v-list-item-title>Edit My Team</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
 
                 <!--My Profile-->
-                <router-link to="/">
+                <router-link to="/editprofile" v-if="isLoggedIn">
                     <v-list-item>
                         <v-list-item-action>
                             <v-icon>person</v-icon>
@@ -39,7 +39,7 @@
                 </router-link>
 
                 <!--login-->
-                <router-link to="/login">
+                <router-link to="/login" v-if="!isLoggedIn">
                     <v-list-item>
                         <v-list-item-action>
                             <v-icon>person</v-icon>
@@ -49,6 +49,19 @@
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
+
+                <!-- logout -->
+                <div v-if="isLoggedIn" >
+                    <v-list-item v-on:click="logout">
+                        <v-list-item-action>
+                            <v-icon>person</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </div>
+
             </v-list>
         </v-navigation-drawer>
         <v-app-bar app color="primary" dark>
@@ -65,6 +78,15 @@
         data: () => ({
             drawer: null,
         }),
+        methods: {
+            logout: function () {
+                this.$store.dispatch('logout')
+                    .then(() => this.$router.push('/'))
+            },
+        },
+        computed: {
+            isLoggedIn() {return this.$store.getters.isLoggedIn}
+        },
     }
 </script>
 
