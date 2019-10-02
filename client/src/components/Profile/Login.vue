@@ -10,12 +10,13 @@
                         </v-toolbar>
                         <v-card-text>
                             <v-form>
-                                <v-text-field v-model="username" label="Login" name="login" prepend-icon="person" type="text"></v-text-field>
-                                <v-text-field v-model="password" id="password" label="Password" name="password" prepend-icon="lock" type="password"></v-text-field>
+                                <v-text-field v-model="username" label="Login" name="login" prepend-icon="person" type="text" autocomplete="username"></v-text-field>
+                                <v-text-field v-model="password" id="password" label="Password" name="password" prepend-icon="lock" type="password" autocomplete="current-password"></v-text-field>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
                             <div class="flex-grow-1"></div>
+                            <v-btn color="warning" v-on:click="goRegisterPage">Register</v-btn>
                             <v-btn color="primary" v-on:click="processLogin">Login</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -43,7 +44,9 @@
                 // this.$store.dispatch('login', data)
                 //     .then(() => this.$router.push('/'))
                 //     .catch(err => this.console.log(err))
-            }
+            },
+            goRegisterPage: function () { this.$router.push('/register') },
+
         }
     }
 </script>

@@ -6,8 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         status: '',
-        // token: localStorage.getItem('token') || '',
-        token: '',
+        token: localStorage.getItem('token') || '',
         username: '',
     },
     mutations: {
@@ -19,6 +18,11 @@ export default new Vuex.Store({
             state.token = payload.token;
             state.username = payload.username;
         },
+        logout(state){
+            state.status = '';
+            state.token = '';
+            state.username = '';
+        },
     },
     actions: {
         login({commit}, payload) {
@@ -29,16 +33,17 @@ export default new Vuex.Store({
             let token = 'test_jwt';
 
             localStorage.setItem('token', 'test_jwt');
-            let data = {
-                token: token,
-                username: username
-            };
+            let data = {token: token, username: username};
 
             commit('auth_success', data)
+        },
+        logout({commit}, ) {
+            commit('logout');
+            localStorage.removeItem('token');
         }
     },
     getters: {
-        isLoggedIn: state => !!state.token,
+        isLoggedIn: state => !!state.token && !!state.username,
         authStatus: state => state.status,
         username: state => state.username,
     },
