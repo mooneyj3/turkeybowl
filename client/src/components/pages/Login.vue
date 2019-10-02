@@ -10,8 +10,8 @@
                         </v-toolbar>
                         <v-card-text>
                             <v-form>
-                                <v-text-field label="Login" name="login" prepend-icon="person" type="text"></v-text-field>
-                                <v-text-field id="password" label="Password" name="password" prepend-icon="lock" type="password"></v-text-field>
+                                <v-text-field v-model="username" label="Login" name="login" prepend-icon="person" type="text"></v-text-field>
+                                <v-text-field v-model="password" id="password" label="Password" name="password" prepend-icon="lock" type="password"></v-text-field>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
@@ -30,12 +30,19 @@
         name: "Login",
         props: {},
         data() {
-            return {}
+            return {
+                username: "",
+                password: ""
+            }
         },
         methods: {
-            async processLogin() {
-                this.$router.push("/");
-                // router.push("/")
+            processLogin: function () {
+                this.$store.dispatch('login', {username: this.username, password: this.password})
+                    .then(() => this.$router.push('/'))
+
+                // this.$store.dispatch('login', data)
+                //     .then(() => this.$router.push('/'))
+                //     .catch(err => this.console.log(err))
             }
         }
     }
