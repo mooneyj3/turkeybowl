@@ -4,7 +4,7 @@
             <v-list-item-content>
                 <div class="overline mb-4">EDIT TEAM</div>
                 <v-list-item-title class="headline mb-1">The Cosmonauts</v-list-item-title>
-                <v-list-item-subtitle>Owner: Rick Sanchez</v-list-item-subtitle>
+                <v-list-item-subtitle>Owner: {{ getUsername }}</v-list-item-subtitle>
             </v-list-item-content>
             <!--<v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>-->
         </v-list-item>
@@ -54,6 +54,9 @@
 <script>
     export default {
         name: "Team",
+        computed: {
+            getUsername() {return this.$store.getters.username},
+        }
     }
 </script>
 

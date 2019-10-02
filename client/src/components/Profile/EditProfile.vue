@@ -3,7 +3,7 @@
         <v-list-item three-line>
             <v-list-item-content>
                 <div class="overline mb-4">EDIT PROFILE</div>
-                <v-list-item-title class="headline mb-1">Rick Sanchez</v-list-item-title>
+                <v-list-item-title class="headline mb-1">{{ getUsername }}</v-list-item-title>
                 <v-list-item-subtitle>Some shit can go here</v-list-item-subtitle>
             </v-list-item-content>
             <!--<v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>-->
@@ -42,7 +42,10 @@
 
 <script>
     export default {
-        name: "Profile"
+        name: "Profile",
+        computed: {
+            getUsername() {return this.$store.getters.username},
+        }
     }
 </script>
 
