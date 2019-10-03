@@ -8,6 +8,9 @@
             <h1>Hello {{ getUsername }}</h1>
             <p>Welcome to Turkey Bowl 2019!!!</p>
         </div>
+        <div>
+            <img src="nfl-schedule.png" />
+        </div>
     </div>
 </template>
 
