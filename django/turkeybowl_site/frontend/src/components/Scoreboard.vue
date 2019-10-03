@@ -9,7 +9,7 @@
             <p>Welcome to Turkey Bowl 2019!!!</p>
         </div>
         <div>
-            <img src="static/nfl-schedule.png" />
+            <img src="/static/nfl-schedule.png" />
         </div>
     </div>
 </template>

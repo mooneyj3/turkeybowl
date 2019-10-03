@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.urls import path
+from django.views.generic import TemplateView
 from django.contrib import admin
 from tastypie.api import Api
 
@@ -29,4 +31,5 @@ v1_api.register(StatResource())
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(v1_api.urls)),
+    path('', TemplateView.as_view(template_name='application.html'), name='app')
 ]
