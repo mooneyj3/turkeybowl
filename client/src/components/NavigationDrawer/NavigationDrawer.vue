@@ -75,10 +75,10 @@
         methods: {
             logout: function () {
                 this.$store.dispatch('logout')
-                    .then(() => this.$router.push('/'))
+                    .then(() => this.$router.push('/'));
             },
             goToPage: function (destination) {
-                this.$router.push(destination).resolve();
+                this.$router.push(destination).catch(err => {});
             }
         },
         computed: {
