@@ -16,9 +16,13 @@
                         </v-card-text>
                         <v-card-actions>
                             <div class="flex-grow-1"></div>
-                            <v-btn color="warning" v-on:click="goRegisterPage">Register</v-btn>
                             <v-btn color="primary" v-on:click="processLogin">Login</v-btn>
+                            <div class="flex-grow-1"></div>
                         </v-card-actions>
+                        <v-card-text class="text-center">
+                            <div>New to the league?</div>
+                            <router-link to="/register">Click here to Register</router-link>
+                        </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
@@ -45,8 +49,6 @@
                 //     .then(() => this.$router.push('/'))
                 //     .catch(err => this.console.log(err))
             },
-            goRegisterPage: function () { this.$router.push('/register') },
-
         }
     }
 </script>
