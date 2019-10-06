@@ -6,43 +6,19 @@
                 <v-list-item-title class="headline mb-1">The Cosmonauts</v-list-item-title>
                 <v-list-item-subtitle>Owner: {{ getUsername }}</v-list-item-subtitle>
             </v-list-item-content>
-            <!--<v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>-->
         </v-list-item>
 
         <v-container class="pa-2" fluid>
             <v-row>
                 <v-col>
-                    <v-form ref="form" v-model="valid" lazy-validation>
-                        <!--<v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>-->
-                        <!--<v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>-->
+                    <h2>Quarterback</h2>
+                    <p>Select one</p>
+                    <PositionSelectTable v-bind:players="quarterbacks"></PositionSelectTable>
 
-                        <!--<v-select v-model="select" :items="items" :rules="[v => !!v || 'Item is required']" label="Item" required></v-select>-->
-                        <!--<v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>-->
-
-                        Quarterback
-                        <v-checkbox v-model="qb" label="Russell Wilson" value="John"></v-checkbox>
-                        <v-checkbox v-model="qb" label="Jackal McGruber" value="Jacob"></v-checkbox>
-
-                        Wide Receiver
-                        <v-checkbox v-model="wrcv" label="Your Mom" value="John"></v-checkbox>
-                        <v-checkbox v-model="wrcv" label="Poop Skin" value="Jacob"></v-checkbox>
-
-                        Running Back
-                        <v-checkbox v-model="rbck" label="Turbo Boost" value="John"></v-checkbox>
-                        <v-checkbox v-model="rbck" label="Macklemore" value="Jacob"></v-checkbox>
-
-                        <v-btn :disabled="!valid" color="success" class="mr-4">
-                            Validate
-                        </v-btn>
-
-                        <v-btn color="error" class="mr-4">
-                            Reset Form
-                        </v-btn>
-
-                        <v-btn color="warning" @click="resetValidation">
-                            Reset Validation
-                        </v-btn>
-                    </v-form>
+                    <v-divider></v-divider>
+                    <h2>Wide Receivers</h2>
+                    <p>Select two</p>
+                    <PositionSelectTable v-bind:players="wideReceivers"></PositionSelectTable>
                 </v-col>
             </v-row>
         </v-container>
@@ -52,11 +28,34 @@
 </template>
 
 <script>
+    import PositionSelectTable from "./PositionSelectTable";
+
     export default {
         name: "Team",
+        components: {PositionSelectTable},
+        data() {
+            return {
+                quarterbacks: [
+                    {name: 'Mitch Trubisky', team: 'CHI', espnID: '3039707'},
+                    {name: 'Matthew Stafford', team: 'DET', espnID: '12483'},
+                ],
+                wideReceivers: [
+                    {name: 'Allen Robinson II', team: 'CHI', espnID: '16799'},
+                    {name: 'Taylor Gabriel', team: 'CHI', espnID: '17437'},
+                    {name: 'Anthony Miller', team: 'CHI', espnID: '3050487'},
+                    {name: 'Kenny Golladay', team: 'DET', espnID: '2974858'},
+                    {name: 'Marvin Jones Jr.', team: 'DET', espnID: '15072'},
+                    {name: 'Danny Amendola', team: 'DET', espnID: '11674'},
+                ],
+
+            }
+        },
         computed: {
-            getUsername() {return this.$store.getters.username},
-        }
+            getUsername() {
+                return this.$store.getters.username
+            },
+        },
+
     }
 </script>
 
