@@ -13,14 +13,15 @@
                     <th class="text-left">Position</th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Team</th>
-                    <th class="text-center">Add/Change</th>
+                    <th class="text-center">Add</th>
+                    <th class="text-center">Drop</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="(value, key) in team" :key="value.id">
                     <td>{{ key }}</td>
                     <td>{{ value.name }}</td>
-                    <td>{{ value.team }}</td>
+                    <td><v-img class="pr-0" :src="logos[value.team]" max-width="25" max-height="30"></v-img></td>
                     <td class="text-center">
                         <SelectPlayer
                                 v-if="value.pos === 'WR'"
@@ -28,6 +29,7 @@
                                 @selectPlayer="updatePlayer(key, ...arguments)">
                         </SelectPlayer>
                     </td>
+                    <td class="text-center"><v-icon color="error">remove_circle</v-icon></td>
                 </tr>
                 </tbody>
             </template>
@@ -37,6 +39,7 @@
 
 <script>
     import SelectPlayer from "./SelectPlayer";
+
     export default {
         name: "ViewTeam",
         components: {SelectPlayer},
@@ -44,20 +47,26 @@
             return {
                 team: {
                     QB: {name: '', team: '', id: 1, pos: 'QB'},
-                    RB1: {name: '', team: '', id: 2, pos: 'RB'},
-                    RB2: {name: '', team: '', id: 3, pos: 'RB'},
-                    WR1: {name: '', team: '', id: 4, pos: 'WR'},
-                    WR2: {name: '', team: '', id: 5, pos: 'WR'},
-                    TE: {name: '', team: '', id: 6, pos: 'TE'},
-                    K: {name: '', team: '', id: 7, pos: 'K'},
-                    DST: {name: '', team: '', id: 8, pos: 'DST'},
+                    RB: {name: '', team: '', id: 2, pos: 'RB'},
+                    WR: {name: '', team: '', id: 3, pos: 'WR'},
+                    TE: {name: '', team: '', id: 4, pos: 'TE'},
+                    K: {name: '', team: '', id: 5, pos: 'K'},
+                    DST: {name: '', team: '', id: 6, pos: 'DST'},
                 },
+                logos: {
+                    CHI: 'logos/bears.png',
+                    BUF: 'logos/bills.png',
+                    DAL: 'logos/cowboys.png',
+                    ATL: 'logos/falcons.png',
+                    DET: 'logos/lions.png',
+                    NO: 'logos/saint.png',
+                }
 
             }
         },
         methods: {
             // goEditTeamPage: function () { this.$router.push('/editteam') },
-            updatePlayer: function(position, item) {
+            updatePlayer: function (position, item) {
                 this.team[position] = item;
             }
         }
@@ -65,5 +74,4 @@
 </script>
 
 <style scoped>
-
 </style>
