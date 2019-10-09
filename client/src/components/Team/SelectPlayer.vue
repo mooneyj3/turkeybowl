@@ -2,8 +2,7 @@
     <v-row justify="center">
         <v-dialog persistent v-model="dialog" scrollable max-width="300px">
             <template v-slot:activator="{ on }">
-                <v-icon color="green" v-on="on">add_circle</v-icon>
-<!--                <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>-->
+                <v-icon color="success" v-on="on">add_circle</v-icon>
             </template>
             <v-card>
                 <v-card-title>Select a {{ pos }}</v-card-title>
