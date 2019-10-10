@@ -39,7 +39,7 @@
                                 <h2 class="pt-5">Team Information</h2>
                                 <p>This information <b>will be visible</b> do other players in the league.</p>
 
-                                <!-- team name -->
+                                <!-- selectedPlayers name -->
                                 <v-text-field :rules="genericRules" v-model="teamName" id="teamName" label="Team Name"
                                               name="teamName" prepend-icon="people" type="text" required>
                                 </v-text-field>

@@ -13,23 +13,31 @@
                     <th class="text-left">Position</th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Team</th>
-                    <th class="text-center">Add</th>
-                    <th class="text-center">Drop</th>
+                    <th class="text-center">Add / Drop</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(value, key) in team" :key="value.id">
+                <tr v-for="(value, key) in selectedPlayers" :key="key">
                     <td>{{ key }}</td>
-                    <td>{{ value.name }}</td>
-                    <td><v-img class="pr-0" :src="logos[value.team]" max-width="25" max-height="30"></v-img></td>
-                    <td class="text-center">
-                        <SelectPlayer
-                                v-if="value.pos === 'WR'"
-                                v-bind:pos="value.pos"
-                                @selectPlayer="updatePlayer(key, ...arguments)">
-                        </SelectPlayer>
+                    <td>{{ value !== null ? value.name : '' }}</td>
+                    <td>
+                        <v-img v-if="value !== null" class="pr-0" :src="logos[value.team]" max-width="25" max-height="30"></v-img>
                     </td>
-                    <td class="text-center"><v-icon color="error">remove_circle</v-icon></td>
+                    <td class="text-center">
+                        <v-row>
+                            <div class="flex-grow-1"></div>
+                            <SelectPlayer
+                                    v-bind:position="key"
+                                    v-bind:teamFilter="teamFilter"
+                                    @selectPlayer="updatePlayer(key, ...arguments)">
+                            </SelectPlayer>
+                            <div class="flex-grow-1 hidden-md-and-up"></div>
+                            <v-icon color="error" class="mx-auto" v-on:click="removePlayer(key)">
+                                remove_circle
+                            </v-icon>
+                            <div class="flex-grow-1"></div>
+                        </v-row>
+                    </td>
                 </tr>
                 </tbody>
             </template>
@@ -45,13 +53,21 @@
         components: {SelectPlayer},
         data() {
             return {
-                team: {
-                    QB: {name: '', team: '', id: 1, pos: 'QB'},
-                    RB: {name: '', team: '', id: 2, pos: 'RB'},
-                    WR: {name: '', team: '', id: 3, pos: 'WR'},
-                    TE: {name: '', team: '', id: 4, pos: 'TE'},
-                    K: {name: '', team: '', id: 5, pos: 'K'},
-                    DST: {name: '', team: '', id: 6, pos: 'DST'},
+                teamFilter: {
+                    CHI: false,
+                    BUF: false,
+                    DAL: false,
+                    ATL: false,
+                    DET: false,
+                    NO: false,
+                },
+                selectedPlayers: {
+                    QB: null,
+                    RB: null,
+                    WR: null,
+                    TE: null,
+                    K: null,
+                    DST: null,
                 },
                 logos: {
                     CHI: 'logos/bears.png',
@@ -59,7 +75,7 @@
                     DAL: 'logos/cowboys.png',
                     ATL: 'logos/falcons.png',
                     DET: 'logos/lions.png',
-                    NO: 'logos/saint.png',
+                    NO: 'logos/saints.png',
                 }
 
             }
@@ -67,7 +83,17 @@
         methods: {
             // goEditTeamPage: function () { this.$router.push('/editteam') },
             updatePlayer: function (position, item) {
-                this.team[position] = item;
+                this.teamFilter[item.team] = true;
+                this.selectedPlayers[position] = item;
+            },
+            removePlayer: function (position) {
+                if (this.selectedPlayers[position] === null) return;
+
+                // extract the team
+                let team = this.selectedPlayers[position].team;
+
+                this.teamFilter[team] = false;
+                this.selectedPlayers[position] = null;
             }
         }
     }

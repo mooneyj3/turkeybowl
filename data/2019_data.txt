@@ -1,0 +1,12 @@
+2019
+Thursday, November 28th (Week 13)
+http://www.nfl.com/schedules/2019/REG13
+
+Depth Charts
+Week 12:  http://api.sportradar.us/nfl/official/trial/v5/en/seasons/2019/REG/12/depth_charts.json
+Week 13:  http://api.sportradar.us/nfl/official/trial/v5/en/seasons/2019/REG/13/depth_charts.json
+
+Home    Away    Game ID Game Center Data
+Lions (DET) Bears (CHI) 2019112800  http://www.nfl.com/liveupdate/game-center/2019112800/2019112800_gtd.json
+Cowboys (DAL)   Bills   (BUF)   2019112801  http://www.nfl.com/liveupdate/game-center/2019112801/2019112801_gtd.json
+Falcons (ATL)   Saints (NO) 2019112802  http://www.nfl.com/liveupdate/game-center/2019112802/2019112802_gtd.json
