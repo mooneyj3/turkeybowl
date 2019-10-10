@@ -13,23 +13,26 @@
                     <th class="text-left">Position</th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Team</th>
-                    <th class="text-center">Add</th>
-                    <th class="text-center">Drop</th>
+                    <th class="text-center">Add / Drop</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(value, key) in team" :key="value.id">
+                <tr v-for="(value, key) in team" :key="key">
                     <td>{{ key }}</td>
                     <td>{{ value.name }}</td>
                     <td><v-img class="pr-0" :src="logos[value.team]" max-width="25" max-height="30"></v-img></td>
                     <td class="text-center">
-                        <SelectPlayer
-                                v-if="value.pos === 'WR'"
-                                v-bind:pos="value.pos"
-                                @selectPlayer="updatePlayer(key, ...arguments)">
-                        </SelectPlayer>
+                        <v-row>
+                            <div class="flex-grow-1"></div>
+                            <SelectPlayer
+                                    v-if="value.pos === 'WR'"
+                                    v-bind:pos="value.pos"
+                                    @selectPlayer="updatePlayer(key, ...arguments)">
+                            </SelectPlayer>
+                            <v-icon color="error">remove_circle</v-icon>
+                            <div class="flex-grow-1"></div>
+                        </v-row>
                     </td>
-                    <td class="text-center"><v-icon color="error">remove_circle</v-icon></td>
                 </tr>
                 </tbody>
             </template>
@@ -68,6 +71,9 @@
             // goEditTeamPage: function () { this.$router.push('/editteam') },
             updatePlayer: function (position, item) {
                 this.team[position] = item;
+            },
+            removePlayer: function (position) {
+                this.team[position]
             }
         }
     }
