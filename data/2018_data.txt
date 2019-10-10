@@ -1,0 +1,13 @@
+2018
+Thursday, November 22nd (Week 12)
+http://www.nfl.com/schedules/2018/REG12
+
+Depth Charts
+Week 11:  http://api.sportradar.us/nfl/official/trial/v5/en/seasons/2018/REG/11/depth_charts.json
+Week 12:  http://api.sportradar.us/nfl/official/trial/v5/en/seasons/2018/REG/12/depth_charts.json
+
+Home    Away    Game ID Game Center Data
+Lions (DET) Bears (CHI) 2018112200  http://www.nfl.com/liveupdate/game-center/2018112200/2018112200_gtd.json
+Cowboys (DAL)   Chiefs (WAS)    2018112201  http://www.nfl.com/liveupdate/game-center/2018112201/2018112201_gtd.json
+Saints (NO) Falcons (ATL)   2018112202  http://www.nfl.com/liveupdate/game-center/2018112202/2018112202_gtd.json
+

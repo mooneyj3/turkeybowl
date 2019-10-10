@@ -5,23 +5,17 @@
                 <v-icon color="success" v-on="on">add_circle</v-icon>
             </template>
             <v-card>
-                <v-card-title>Select a {{ pos }}</v-card-title>
+                <v-card-title>Select a {{ position }}</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text style="height: 300px;">
                     <v-radio-group v-model="selectedPlayer" column>
-                        <v-radio v-for="player in players"
+                        <v-radio v-for="player in activePosition"
                                  :label="player.name + '\t(' + player.team + ')'"
                                  :key=player.espnID
                                  :value=player
+                                 :disabled="teamFilter[player.team]"
                         >
-
                         </v-radio>
-<!--                        <v-radio label="Bahamas, The" value="bahamas"></v-radio>-->
-<!--                        <v-radio label="Bahrain" value="bahrain"></v-radio>-->
-<!--                        <v-radio label="Bangladesh" value="bangladesh"></v-radio>-->
-<!--                        <v-radio label="Barbados" value="barbados"></v-radio>-->
-<!--                        <v-radio label="Belarus" value="belarus"></v-radio>-->
-<!--                        <v-radio label="Belgium" value="belgium"></v-radio>-->
                     </v-radio-group>
                 </v-card-text>
                 <v-divider></v-divider>
@@ -37,19 +31,72 @@
 <script>
     export default {
         name: "SelectPlayer",
-        props: ['pos'],
+        props: {
+            position: String,
+            teamFilter: Object,
+        },
         data() {
             return {
                 selectedPlayer: '',
                 dialog: false,
                 players: [
+                    {name: 'Mitchell Trubisky', team: 'CHI', id: '3039707', pos: 'QB'},
+                    {name: 'Matthew Stafford', team: 'DET', id: '', pos: 'QB'},
+                    {name: 'Josh Allen', team: 'BUF', id: '', pos: 'QB'},
+                    {name: 'Dak Prescott', team: 'DAL', id: '', pos: 'QB'},
+                    {name: 'Matt Ryan', team: 'ATL', id: '', pos: 'QB'},
+                    {name: 'Teddy Bridgewater', team: 'NO',  id: '', pos: 'QB'},
+
+                    {name: 'David Montgomery', team: 'CHI', id: '4035538', pos: 'RB'},
+                    {name: 'Kerryon Johnson', team: 'DET', id: '', pos: 'RB'},
+                    {name: 'Frank Gore', team: 'BUF', id: '', pos: 'RB'},
+                    {name: 'Ezekiel Elliott', team: 'DAL', id: '', pos: 'RB'},
+                    {name: 'Devonta Freeman', team: 'ATL', id: '', pos: 'RB'},
+                    {name: 'Alvin Kamara', team: 'NO',  id: '', pos: 'RB'},
+
                     {name: 'Allen Robinson II', team: 'CHI', id: '16799', pos: 'WR'},
-                    {name: 'Taylor Gabriel', team: 'CHI', id: '17437', pos: 'WR'},
-                    {name: 'Anthony Miller', team: 'CHI', id: '3050487', pos: 'WR'},
                     {name: 'Kenny Golladay', team: 'DET', id: '2974858', pos: 'WR'},
-                    {name: 'Marvin Jones Jr.', team: 'DET', id: '15072', pos: 'WR'},
-                    {name: 'Danny Amendola', team: 'DET', id: '11674', pos: 'WR'},
+                    {name: 'John Brown', team: 'BUF', id: '', pos: 'WR'},
+                    {name: 'Amari Cooper', team: 'DAL', id: '', pos: 'WR'},
+                    {name: 'Julio Jones', team: 'ATL', id: '', pos: 'WR'},
+                    {name: 'Michael Thomas', team: 'NO',  id: '', pos: 'WR'},
+
+                    {name: 'Trey Burton', team: 'CHI', id: '', pos: 'TE'},
+                    {name: 'T.J. Hockenson', team: 'DET', id: '', pos: 'TE'},
+                    {name: 'Tyler Kroft', team: 'BUF', id: '', pos: 'TE'},
+                    {name: 'Jason Witten', team: 'DAL', id: '', pos: 'TE'},
+                    {name: 'Austin Hooper', team: 'ATL', id: '', pos: 'TE'},
+                    {name: 'Jared Cook', team: 'NO',  id: '', pos: 'TE'},
+
+                    {name: 'Eddy Pineiro', team: 'CHI', id: '', pos: 'K'},
+                    {name: 'Matt Prater', team: 'DET', id: '', pos: 'K'},
+                    {name: 'Stephen Hauschka', team: 'BUF', id: '', pos: 'K'},
+                    {name: 'Brett Maher', team: 'DAL', id: '', pos: 'K'},
+                    {name: 'Matt Bryant', team: 'ATL', id: '', pos: 'K'},
+                    {name: 'Wil Lutz', team: 'NO',  id: '', pos: 'K'},
+
+                    {name: 'Bears', team: 'CHI', id: '', pos: 'DST'},
+                    {name: 'Lions', team: 'DET', id: '', pos: 'DST'},
+                    {name: 'Bills', team: 'BUF', id: '', pos: 'DST'},
+                    {name: 'Cowboys', team: 'DAL', id: '', pos: 'DST'},
+                    {name: 'Falcons', team: 'ATL', id: '', pos: 'DST'},
+                    {name: 'Saints', team: 'NO',  id: '', pos: 'DST'},
+
+                    {name: '', team: 'CHI', id: '', pos: ''},
+                    {name: '', team: 'DET', id: '', pos: ''},
+                    {name: '', team: 'BUF', id: '', pos: ''},
+                    {name: '', team: 'DAL', id: '', pos: ''},
+                    {name: '', team: 'ATL', id: '', pos: ''},
+                    {name: '', team: 'NO',  id: '', pos: ''},
                 ],
+            }
+        },
+        computed: {
+            activePosition() {
+                return this.players.filter(player => player.pos === this.position);
+            },
+            filterTeam(player) {
+                return this.teamFilter[player.team]
             }
         },
         methods: {

@@ -20,7 +20,7 @@
 <!--            <template v-slot:item="props">-->
 <!--                <tr>-->
 <!--                    <td>{{ props.item.name }}</td>-->
-<!--                    <td>{{ props.item.team }}</td>-->
+<!--                    <td>{{ props.item.selectedPlayers }}</td>-->
 <!--                </tr>-->
 <!--            </template>-->
 
