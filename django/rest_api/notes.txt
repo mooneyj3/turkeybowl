@@ -1,0 +1,5 @@
+create a new superuser with `password123`:
+python manage.py createsuperuser --email admin@example.com --username admin
+
+Test rest framework
+curl -H 'Accept: application/json; indent=4' -u admin:password123 http://127.0.0.1:8000/users/
