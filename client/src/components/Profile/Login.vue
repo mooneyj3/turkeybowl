@@ -13,6 +13,9 @@
                                 <v-text-field v-model="username" label="Login" name="login" prepend-icon="person" type="text" autocomplete="username"></v-text-field>
                                 <v-text-field v-model="password" id="password" label="Password" name="password" prepend-icon="lock" type="password" autocomplete="current-password"></v-text-field>
                             </v-form>
+                            <v-alert type="error" v-if="error !== ''">
+                                Whoa! You probably messed up your user name or password.
+                            </v-alert>
                         </v-card-text>
                         <v-card-actions>
                             <div class="flex-grow-1"></div>
@@ -37,17 +40,18 @@
         data() {
             return {
                 username: "",
-                password: ""
+                password: "",
+                error: "",
             }
         },
         methods: {
             processLogin: function () {
+                this.error = "";
                 this.$store.dispatch('login', {username: this.username, password: this.password})
                     .then(() => this.$router.push('/'))
-
-                // this.$store.dispatch('login', data)
-                //     .then(() => this.$router.push('/'))
-                //     .catch(err => this.console.log(err))
+                    .catch(err => {
+                        this.error = String(err);
+                    })
             },
         }
     }

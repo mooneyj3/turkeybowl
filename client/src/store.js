@@ -1,5 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from 'axios'
+
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.xsrfCookieName = 'csrftoken';
 
 
 Vue.use(Vuex);
@@ -18,6 +22,9 @@ export default new Vuex.Store({
             state.token = payload.token;
             state.username = payload.username;
         },
+        auth_error(state){
+            state.status = 'error'
+        },
         logout(state){
             state.status = '';
             state.token = '';
@@ -26,20 +33,32 @@ export default new Vuex.Store({
     },
     actions: {
         login({commit}, payload) {
-            commit('auth_request');
 
-            let username = payload.username;
-            // let password = payload.password;
-            let token = 'test_jwt';
-
-            localStorage.setItem('token', 'test_jwt');
-            let data = {token: token, username: username};
-
-            commit('auth_success', data)
+            return new Promise((resolve, reject) => {
+                commit('auth_request');
+                axios({url: 'http://localhost:8000/api/token/', data: payload, method: 'POST'})
+                    .then(resp => {
+                        const access = resp.data.access;
+                        const refresh = resp.data.refresh;
+                        const username = payload.username;
+                        localStorage.setItem('access', access);
+                        localStorage.setItem('refresh', refresh);
+                        let data = {token: access, username: username};
+                        commit('auth_success', data);
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        commit('auth_error');
+                        localStorage.removeItem('access');
+                        localStorage.removeItem('refresh');
+                        reject(err);
+                    });
+            });
         },
         logout({commit}, ) {
             commit('logout');
-            localStorage.removeItem('token');
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh')
         }
     },
     getters: {
