@@ -43,10 +43,10 @@
                     <v-text-field v-model="endpoint" label="API endpoint"></v-text-field>
                 </v-col>
                 <v-col>
-                    <v-select v-model="requestType" :items="requestTypes" label="Request Type"></v-select>
+                    <v-select v-model="method" :items="methods" label="Request Type"></v-select>
                 </v-col>
                 <v-col>
-                    <v-btn color="success">Submit</v-btn>
+                    <v-btn color="success" @click="apiRequest">Submit</v-btn>
                 </v-col>
             </v-row>
 
@@ -61,9 +61,13 @@
                 <h2 class="text--primary">API RESPONSE</h2>
             </v-row>
 
+            <v-row class="pb-4">
+                <p><b>Response code:</b> {{ responseCode }}</p>
+            </v-row>
+
             <v-row>
                 <v-sheet elevation="6" class="mx-auto" width="750" color="grey lighten-3">
-                    {{ APIResponse === '' ? '...' : APIResponse }}
+                    {{ responseData === '' ? '...' : responseData }}
                 </v-sheet>
             </v-row>
 
@@ -78,18 +82,23 @@
 </template>
 
 <script>
+    import axios from 'axios'
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.defaults.xsrfCookieName = 'csrftoken';
+
     export default {
         name: "APISandbox",
         data() {
             return {
                 username: '',
                 password: '',
-                endpoint: '',
+                endpoint: 'http://localhost:8000/',
                 headers: '',
                 body: '',
-                APIResponse: '',
-                requestTypes: ['POST', 'GET', 'UPDATE'],
-                requestType: '',
+                responseData: '',
+                responseCode: '',
+                methods: ['POST', 'GET', 'UPDATE'],
+                method: 'POST',
 
             }
         },
@@ -106,6 +115,34 @@
                         console.log(err)
                     })
             },
+            apiRequest() {
+                let url = this.endpoint;
+                let method = this.method;
+                // let headers = this.headers;
+                let data = this.body;
+
+                let headers =  {
+                    Authorization: 'JWT ' + this.$store.state.token,
+                    'Content-Type': 'application/json'
+                };
+
+                let isLoggedIn = this.$store.getters.isLoggedIn;
+
+                if (isLoggedIn) {
+                    axios.defaults.headers.common['Authorization'] = localStorage.getItem('access');
+                }
+
+                axios({url: url, headers: headers, data: data, method: method})
+                    .then(resp => {
+                        this.responseCode = resp.status;
+                        this.responseData = resp.data;
+                    })
+                    .catch(err => {
+                        this.responseCode = err.response.status;
+                        this.responseData = err.response.data;
+                    })
+
+            }
         },
         computed: {
             isLoggedIn() {
